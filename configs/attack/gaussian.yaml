@@ -1,0 +1,4 @@
+_target_: 'functools.partial'
+_args_: ['${get_method: torchattacks.GN}']
+_name_: GN
+std: 0.2

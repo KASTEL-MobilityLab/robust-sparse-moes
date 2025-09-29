@@ -1,0 +1,10 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/evaluation/default
+
+wandb:
+  run_name: cifar100-resnet18-free-adv

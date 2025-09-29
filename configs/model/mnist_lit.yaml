@@ -1,0 +1,6 @@
+defaults:
+- nn@model: resnet18
+
+_target_: src.models.lit_module.CrossEntropyLitModule
+lr: 0.001
+weight_decay: 0.0005

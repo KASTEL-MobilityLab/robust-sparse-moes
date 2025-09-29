@@ -1,0 +1,21 @@
+defaults:
+- default.yaml
+
+watch_model:
+  _target_: src.callbacks.wandb_callbacks.WatchModel
+  log: "all"
+  log_freq: 5000
+
+upload_code_as_artifact:
+  _target_: src.callbacks.wandb_callbacks.UploadCodeAsArtifact
+  code_dir: ${work_dir}/src
+  use_git: false
+
+log_f1_precision_recall_heatmap:
+  _target_: src.callbacks.wandb_callbacks.LogF1PrecRecHeatmap
+
+log_moe_gate_activations:
+  _target_: src.callbacks.moe_callbacks.LogExpertLabelCorrelationMatrix
+
+log_moe_gate_hist:
+  _target_: src.callbacks.moe_callbacks.LogExpertActivation

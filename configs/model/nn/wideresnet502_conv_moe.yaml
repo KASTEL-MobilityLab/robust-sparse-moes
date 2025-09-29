@@ -1,0 +1,6 @@
+defaults:
+- routing@routing_layer_type: global_pooling_linear
+
+_target_: src.models.nn.moe.resnet_conv_moe.ResNetConvMoE
+layers: 50
+small_inputs: "true"

@@ -1,0 +1,22 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- mnist/default.yaml
+- override /model/nn@model.model: resnet18_moe.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+name: "mnist_moe"
+
+model:
+  num_experts: 16
+
+logger:
+  wandb:
+    tags: ["mnist", "moe"]

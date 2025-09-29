@@ -1,0 +1,20 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar10-resnet18/default
+- override /model: cifar_adv_train_lit
+
+model:
+  _target_: src.models.adv_train_lit.make_lit_module
+  model:
+    num_classes: 10
+
+name: cifar10-resnet18-free-adv
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet18", "${name}"]
+    project: robust-cifar10-resnet-moe

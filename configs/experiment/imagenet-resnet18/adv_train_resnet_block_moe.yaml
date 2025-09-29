@@ -1,0 +1,32 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/imagenet-resnet18/resnet_block_moe
+#- override /model/nn@model.model: resnet_block_moe
+
+model:
+  _target_: src.models.adv_train_lit.make_lit_module
+  base_class: src.models.lit_module.CrossEntropyLitModule
+  model:
+    num_classes: 1000
+    num_experts: 4
+    #num_channels: 3
+  normalization:
+    _target_: pl_bolts.transforms.dataset_normalizations.imagenet_normalization
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: imagenet-resnet${model.model.layers}-adv-train-block-moe${model.model.num_experts}-${model.model.routing_layer_type._name_}-${model.model.k}
+
+
+logger:
+  wandb:
+    tags: ["imagenet", "resnet${model.model.layers}_block_moe", "adv_train", "${name}"]
+    project: robust-imagenet-resnet-moe

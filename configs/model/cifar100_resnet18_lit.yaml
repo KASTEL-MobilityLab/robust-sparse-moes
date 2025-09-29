@@ -1,0 +1,7 @@
+defaults:
+- resnet18_lit
+
+model:
+  small_inputs: true
+  num_classes: 100
+  num_channels: 3

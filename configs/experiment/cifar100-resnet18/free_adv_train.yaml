@@ -1,0 +1,24 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/default
+
+model:
+  _target_: src.models.adv_train_free_lit.make_lit_module
+  base_class: src.models.lit_module.CrossEntropyLitModule
+  model:
+    num_classes: 100
+    #num_channels: 3
+  normalization:
+    _target_: src.datamodules.cifar100_datamodule.cifar100_normalization
+
+
+name: cifar100-resnet18-free-adv
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet18", "${name}"]
+    project: robust-cifar100-resnet-moe

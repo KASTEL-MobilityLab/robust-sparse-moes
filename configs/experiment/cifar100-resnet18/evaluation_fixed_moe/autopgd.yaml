@@ -1,0 +1,38 @@
+# @package _global_
+
+# AutoPGD attack configuration for fixed expert evaluation
+# to execute this experiment run:
+# python eval_fixed_moe.py +experiment=cifar100-resnet18/evaluation_fixed_moe/autopgd
+
+defaults:
+- /experiment/cifar100-resnet18/evaluation_fixed_moe/default
+- override /model/nn@model: resnet_block_moe
+
+wandb:
+  run_name_prefix: block  # 
+  run_name: cifar100-resnet${model.layers}-${wandb.run_name_prefix}-moe${model.num_experts}-${model.routing_layer_type._name_}-1-switch
+  tags: ["cifar100", "resnet18", "autopgd", "fixed_moe"]
+
+# Override attack configuration for AutoPGD
+attack:
+  type: autopgd  
+  epsilon: 8    
+  steps: 20    
+
+model:
+  num_classes: 100
+  num_experts: 4
+  num_channels: 3
+  use_ste: true
+  expert_capacity: 1.5
+  balancing_loss: 1e-2
+  k: 1
+#  balancing_loss_type: switch
+moe_layer: model.layer4.1   # choose fixed experts in which moe layer to be evaluated
+
+name: evaluate-autopgd-${wandb.run_name}-${moe_layer}
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet18", "autopgd", "${name}"]
+    project: robust-cifar100-resnet-moe

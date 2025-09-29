@@ -1,0 +1,10 @@
+_target_: 'functools.partial'
+
+# Use self-defined PGD:
+_args_: ['${get_method: src.utils.attack.pgd}']
+
+_name_: PGD
+
+eps: 0.03137 # 8/255
+alpha: 0.00784313725  # 2/255
+steps: 20

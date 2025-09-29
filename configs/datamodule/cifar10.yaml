@@ -1,0 +1,15 @@
+_target_: pl_bolts.datamodules.CIFAR10DataModule
+
+data_dir: ${data_dir} # data_dir is specified in config.yaml
+batch_size: 256
+num_workers: 12
+normalize: true
+train_transforms:
+  _target_: torchvision.transforms.Compose
+  transforms:
+  - _target_: torchvision.transforms.RandomCrop
+    size: 32
+    padding: 4
+  - _target_: torchvision.transforms.RandomHorizontalFlip
+  - _target_: torchvision.transforms.ToTensor
+  - _target_: pl_bolts.transforms.dataset_normalizations.cifar10_normalization

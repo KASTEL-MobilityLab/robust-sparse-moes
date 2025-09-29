@@ -1,0 +1,4 @@
+_target_: src.models.nn.wideresnet.WideResNet
+pretrained: false
+layers: 50
+small_inputs: "true"

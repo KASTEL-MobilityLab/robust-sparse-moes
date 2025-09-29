@@ -1,0 +1,8 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar10-resnet18/resnet_block_moe
+- /experiment/cifar10-resnet18/attack

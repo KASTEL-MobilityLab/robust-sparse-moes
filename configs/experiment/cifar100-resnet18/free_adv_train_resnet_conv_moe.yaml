@@ -1,0 +1,30 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/resnet_conv_moe
+
+model:
+  _target_: src.models.adv_train_free_lit.make_lit_module
+  base_class: src.models.lit_module.CrossEntropyLitModule
+  model:
+    num_classes: 100
+    num_experts: 4
+    #num_channels: 3
+  normalization:
+    _target_: src.datamodules.cifar100_datamodule.cifar100_normalization
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: cifar100-resnet${model.model.layers}-free-adv-train-${model.model.moe_layer_prefix}-conv-moe${model.model.num_experts}-${model.model.routing_layer_type._name_}-${model.model.k}
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet${model.model.layers}_conv_moe", "free_adv_train", "${name}"]
+    project: robust-cifar100-resnet-moe

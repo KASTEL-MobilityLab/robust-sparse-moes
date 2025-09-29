@@ -1,0 +1,56 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+#- /model@attack_model: cifar100_resnet18_attack_lit
+- /model/nn@model: resnet18
+- override /datamodule: cifar100.yaml
+- override /logger: wandb.yaml
+
+seed: 12345
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: evaluate-${wandb.run_name}
+max_queue_size: 32
+
+#datamodule:
+#  val_split: 16
+#  #batch_size: 2
+#  #num_workers: 0
+
+model:
+  num_channels: 3
+  num_classes: 100
+
+wandb:
+  model_checkpoint_tag: latest
+  run_name: cifar100-resnet18
+
+  tags: ["cifar100", "resnet18"]
+  project: robust-cifar100-resnet-moe
+
+metric:
+  _target_: torchmetrics.Accuracy
+  task: 'multiclass'
+  num_classes: 100  #
+
+print_config: true
+
+attack:
+  epsilon: 8 #
+  alpha: 2
+  steps: [10, 20]
+
+normalization:
+  _target_: src.datamodules.cifar100_datamodule.cifar100_normalization
+
+hydra:
+  run:
+    dir: .

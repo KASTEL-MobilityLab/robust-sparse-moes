@@ -1,0 +1,7 @@
+defaults:
+- wideresnet502_lit
+
+model:
+  small_inputs: true
+  num_classes: 100
+  num_channels: 3

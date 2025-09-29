@@ -1,0 +1,24 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/imagenet-resnet18/default
+
+model:
+  _target_: src.models.adv_train_lit.make_lit_module
+  base_class: src.models.lit_module.CrossEntropyLitModule
+  model:
+    num_classes: 1000
+    #num_channels: 3
+  normalization:
+    _target_: pl_bolts.transforms.dataset_normalizations.imagenet_normalization
+
+
+name: imagenet-resnet18-adv
+
+logger:
+  wandb:
+    tags: ["imagenet", "resnet18", "${name}"]
+    project: robust-imagenet-resnet-moe

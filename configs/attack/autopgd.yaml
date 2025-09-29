@@ -1,0 +1,7 @@
+_target_: functools.partial
+_args_: ['${get_method: src.utils.attack.auto_pgd}']
+
+_name_: APGD
+eps: 0.03137 # 8/255
+alpha: 0.0078431 # 2/255
+steps: 20

@@ -1,0 +1,4 @@
+defaults:
+- resnet18
+
+_target_: src.models.moe.resnet.ResNet

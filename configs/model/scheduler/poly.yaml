@@ -1,0 +1,5 @@
+_target_: 'functools.partial'
+_args_: ['${get_method: src.utils.lr.PolyLR}']
+_name_: PolyLR
+exponent: 0.9
+T_max: ${trainer.max_epochs}

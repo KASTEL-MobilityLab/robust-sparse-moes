@@ -1,0 +1,31 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/imagenet-resnet18/default
+- override /model/nn@model.model: resnet_conv_moe
+
+model:
+  model:
+    num_classes: 1000
+    num_experts: 4
+    #num_channels: 3
+    use_ste: true
+    expert_capacity: 1.5
+    balancing_loss: 1e-2
+    k: 1
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: imagenet-resnet${model.model.layers}-conv-moe${model.model.num_experts}-${model.model.routing_layer_type._name_}-${model.model.k}
+
+logger:
+  wandb:
+    tags: ["imagenet", "resnet${model.model.layers}_conv_moe", "${name}"]
+    project: robust-imagenet-resnet-moe

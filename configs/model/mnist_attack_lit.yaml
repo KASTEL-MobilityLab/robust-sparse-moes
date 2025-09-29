@@ -1,0 +1,12 @@
+defaults:
+- resnet_lit
+- /attack: pgd.yaml
+
+_target_: src.models.attack_module.make_lit_module
+base_class: src.models.lit_module.CrossEntropyLitModule
+
+
+normalization:
+  _target_: torchvision.transforms.Normalize
+  mean: [0.1307]
+  std: [0.3081]

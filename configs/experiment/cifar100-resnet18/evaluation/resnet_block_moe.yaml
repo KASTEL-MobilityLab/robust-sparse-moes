@@ -1,0 +1,25 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/evaluation/default
+- override /model/nn@model: resnet_block_moe
+
+wandb:
+  run_name: cifar100-resnet${model.layers}-block-moe${model.num_experts}-${model.routing_layer_type._name_}-${model.k}
+
+model:
+  num_classes: 100
+  num_experts: 4
+  num_channels: 3
+  use_ste: true
+  expert_capacity: 1.5
+  balancing_loss: 1e-2
+  k: 1
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet${model.layers}_block_moe", "${name}"]
+    project: robust-cifar100-resnet-moe

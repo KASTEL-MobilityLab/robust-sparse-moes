@@ -1,0 +1,25 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/imagenet-resnet18/default
+- override /model: imagenet_attack_lit.yaml
+
+model:
+  _target_: src.models.attack_module.make_lit_module
+  model:
+    num_classes: 1000
+
+name: ${wandb.checkpoint_reference}-${model.attack._name_}
+
+execute_train: false
+wandb:
+  checkpoint_reference: model-imagenet-resnet18-adv:best
+  model_checkpoint: model.ckpt
+
+logger:
+  wandb:
+    tags: ["imagenet", "resnet18", "${model.attack._name_}", "${name}", "${wandb.checkpoint_reference}"]
+    project: robust-cifar100-resnet-moe

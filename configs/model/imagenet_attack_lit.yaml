@@ -1,0 +1,12 @@
+defaults:
+- imagenet_lit
+- /attack: pgd
+
+_target_: src.models.attack_module.make_lit_module
+base_class: src.models.lit_module.CrossEntropyLitModule
+
+model:
+  num_classes: 1000
+
+normalization:
+  _target_: pl_bolts.transforms.dataset_normalizations.imagenet_normalization

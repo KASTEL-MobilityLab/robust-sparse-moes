@@ -1,0 +1,4 @@
+defaults:
+- wideresnet502
+
+_target_: src.models.moe.wideresnet.WideResNet

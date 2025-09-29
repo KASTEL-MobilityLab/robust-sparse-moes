@@ -1,0 +1,3 @@
+_target_: 'functools.partial'
+_args_: ['${get_method: src.models.nn.moe.routing.GlobalAvgDeterministicRoutingNetwork}']
+_name_: GADRN

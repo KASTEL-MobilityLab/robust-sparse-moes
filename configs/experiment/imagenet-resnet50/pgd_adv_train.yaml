@@ -1,0 +1,29 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/default
+- /attack@model.attack: pgd
+
+model:
+  _target_: src.models.adv_train_pgd_lit.make_lit_module
+  base_class: src.models.lit_module.CrossEntropyLitModule
+  model:
+    num_classes: 100
+  normalization:
+    _target_: src.datamodules.cifar100_datamodule.cifar100_normalization
+  attack:
+    steps: 7
+    eps: 0.03137 # 8/255
+    alpha: 0.00784313725  # 2/255
+
+
+
+name: cifar100-resnet18-pgd-adv
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet18", "${name}", "${model.model.balancing_loss_type}"]
+    project: robust-cifar100-resnet-moe

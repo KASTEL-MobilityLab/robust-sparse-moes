@@ -1,0 +1,6 @@
+defaults:
+- nn@model: resnet18
+- scheduler: cosine
+- optimizer: sgd
+
+_target_: src.models.lit_module.CrossEntropyLitModule

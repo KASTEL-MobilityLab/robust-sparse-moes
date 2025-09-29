@@ -1,0 +1,4 @@
+_target_: 'functools.partial'
+_args_: ['${get_method: torch.optim.lr_scheduler.StepLR}']
+_name_: StepLR
+step_size: 30

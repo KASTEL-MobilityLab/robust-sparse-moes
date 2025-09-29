@@ -1,0 +1,9 @@
+defaults:
+- cifar_lit
+  #- /attack: pgd
+
+_target_: src.models.adv_train_free_lit.make_lit_module
+base_class: src.models.lit_module.CrossEntropyLitModule
+
+normalization:
+  _target_: pl_bolts.transforms.dataset_normalizations.cifar10_normalization

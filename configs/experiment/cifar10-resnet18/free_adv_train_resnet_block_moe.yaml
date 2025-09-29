@@ -1,0 +1,27 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar10-resnet18/resnet_block_moe
+- /experiment/cifar10-resnet18/free_adv_train
+
+model:
+  model:
+    num_classes: 10
+    num_experts: 4
+    #num_channels: 3
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: cifar10-resnet${model.model.layers}-free-adv-train-block-moe${model.model.num_experts}
+
+logger:
+  wandb:
+    tags: ["cifar10", "resnet${model.model.layers}_block_moe", "free_adv_train", "${name}"]
+    project: robust-cifar10-resnet-moe

@@ -1,0 +1,13 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- mnist-resnet18-fcmoe/default
+- override /model: attack/mnist_moe.yaml
+
+execute_train: "false"
+wandb:
+  checkpoint_reference: ${name}
+  model_checkpoint: last.ckpt

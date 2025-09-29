@@ -1,0 +1,5 @@
+_target_: 'functools.partial'
+_args_: ['${get_method: src.models.nn.moe.routing.ConvGlobalAvgRoutingNetwork}']
+_name_: CGARN
+kernel_size: [3, 3]
+bias: false

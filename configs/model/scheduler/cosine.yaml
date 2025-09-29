@@ -1,0 +1,6 @@
+_target_: 'functools.partial'
+_args_: ['${get_method: src.utils.lr.CosineLR}']
+_name_: CosineLR
+eta_min: 5e-5
+T_max: ${trainer.max_epochs}
+warmup_epochs: 5

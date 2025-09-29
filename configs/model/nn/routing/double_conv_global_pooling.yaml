@@ -1,0 +1,6 @@
+_target_: 'functools.partial'
+_args_: ['${get_method: src.models.nn.moe.routing.DoubleConvGlobalAvgRoutingNetwork}']
+_name_: DCGARN
+kernel_size: [1, 1]
+midplanes: 8
+bias: false

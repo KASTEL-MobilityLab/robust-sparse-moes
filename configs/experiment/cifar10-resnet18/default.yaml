@@ -1,0 +1,52 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- override /mode: exp.yaml
+- override /trainer: default.yaml
+- override /model: cifar_lit.yaml
+- override /datamodule: cifar10.yaml
+- override /callbacks: wandb.yaml
+- override /logger: wandb.yaml
+- override /model/scheduler: cosine
+- override /model/optimizer: sgd
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: cifar10-resnet18
+
+
+model:
+  optimizer:
+    lr: 0.1
+    weight_decay: 5e-4
+    momentum: 0.9
+  scheduler:
+    eta_min: 0
+
+  model:
+    small_inputs: true
+    num_classes: 10
+    num_channels: 3
+
+callbacks:
+  upload_ckpts_as_artifact:
+    artifact_name: ${name}
+
+seed: 12345
+
+trainer:
+  min_epochs: 1
+  max_epochs: 30
+  #gradient_clip_val: 0.5
+
+logger:
+  wandb:
+    tags: ["cifar10", "resnet18"]
+    project: robust-cifar10-resnet-moe

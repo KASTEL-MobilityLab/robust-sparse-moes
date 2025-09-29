@@ -1,0 +1,33 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/evaluation_fixed_moe/default
+- override /model/nn@model: resnet_conv_moe
+
+model:
+  num_classes: 100
+  num_experts: 4
+  #num_channels: 3
+  use_ste: true
+  expert_capacity: 1.5
+  balancing_loss: 1e-2
+  k: 1
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+wandb:
+  run_name: cifar100-resnet${model.layers}-conv-moe${model.num_experts}-${model.routing_layer_type._name_}-${model.k}
+
+moe_layer: model.layer4.1.conv1
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet${model.layers}_conv_moe", "${name}"]
+    project: robust-cifar100-resnet-moe

@@ -1,0 +1,39 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- override /mode: exp.yaml
+- override /trainer: default.yaml
+- override /model: resnet18_moe.yaml
+- override /datamodule: mnist.yaml
+- override /callbacks: wandb.yaml
+- override /logger: wandb.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: mnist-resnet18-fcmoe-${model.model.num_activated_experts}
+
+callbacks:
+  upload_ckpts_as_artifact:
+    artifact_name: ${name}
+
+seed: 12345
+
+trainer:
+  min_epochs: 1
+  max_epochs: 25
+  #gradient_clip_val: 0.5
+
+datamodule:
+  batch_size: 64
+  train_val_test_split: [55_000, 5_000, 10_000]
+
+logger:
+  wandb:
+    tags: ["mnist", "simple_dense_net"]

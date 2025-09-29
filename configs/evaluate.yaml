@@ -1,0 +1,39 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /datamodule: cifar100.yaml
+- /logger: wandb.yaml
+
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: evaluate-${wandb.natural_run}
+
+wandb:
+  model_checkpoint_tag: latest
+  natural_run: cifar100-resnet18
+  adverse_run: cifar100-resnet18-free-adv
+
+metric:
+  _target_: torchmetrics.Accuracy
+
+attack:
+  eps: 0.03137 # 8/255
+  alpha: 0.00784313725  # 2/255
+  steps: [20, 40, 60]
+
+normalization:
+  _target_: src.datamodules.cifar100_datamodule.cifar100_normalization
+
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet18"]
+    project: robust-cifar100-resnet-moe

@@ -1,0 +1,20 @@
+_target_: src.datamodules.cifar100_datamodule.CIFAR100DataModule
+
+data_dir:      #${data_dir} # data_dir is specified in config.yaml
+batch_size:  640
+num_workers: 48
+normalize: true
+train_transforms:
+  _target_: torchvision.transforms.Compose
+  transforms:
+  - _target_: torchvision.transforms.RandomCrop
+    size: 32
+    padding: 4
+  - _target_: torchvision.transforms.RandomHorizontalFlip
+  - _target_: torchvision.transforms.ColorJitter
+    brightness: 0.3
+    contrast: 0.3
+    saturation: 0.3
+    hue: 0.3
+  - _target_: torchvision.transforms.ToTensor
+  - _target_: src.datamodules.cifar100_datamodule.cifar100_normalization

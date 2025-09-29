@@ -1,0 +1,4 @@
+_target_: src.models.nn.resnet.ResNet
+pretrained: false
+layers: 18
+small_inputs: "true"

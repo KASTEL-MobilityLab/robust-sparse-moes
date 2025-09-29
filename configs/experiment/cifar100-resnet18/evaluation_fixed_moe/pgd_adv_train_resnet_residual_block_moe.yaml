@@ -1,0 +1,11 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/evaluation_fixed_moe/resnet_residual_block_moe
+
+wandb:
+ run_name: cifar100-resnet${model.layers}-pgd-adv-train-layer4.1-moe${model.num_experts}-${model.routing_layer_type._name_}-${model.k}-switch
+  # run_name: resnet${model.layers}-pgd-adv-train-block-moe${model.num_experts}-${model.routing_layer_type._name_}-${model.k}-column_entropy

@@ -1,0 +1,36 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example
+
+defaults:
+- /experiment/cifar100-resnet18/resnet_conv_moe
+- /attack@model.attack: pgd
+#- override /model/nn@model.model: resnet_conv_moe
+
+model:
+  _target_: src.models.adv_train_pgd_lit.make_lit_module
+  base_class: src.models.lit_module.CrossEntropyLitModule
+  model:
+    num_classes: 100
+  normalization:
+    _target_: src.datamodules.cifar100_datamodule.cifar100_normalization
+  attack:
+    steps: 7
+    eps: 0.03137 # 8/255
+    alpha: 0.00784313725  # 2/255
+
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+# can also be accessed by loggers
+
+name: cifar100-resnet${model.model.layers}-pgd-adv-train-conv-moe${model.model.num_experts}-${model.model.routing_layer_type._name_}-${model.model.k}
+
+
+logger:
+  wandb:
+    tags: ["cifar100", "resnet${model.model.layers}_conv_moe", "pgd_adv_train", "${name}", "${model.model.balancing_loss_type}"]
+    project: robust-cifar100-resnet-moe

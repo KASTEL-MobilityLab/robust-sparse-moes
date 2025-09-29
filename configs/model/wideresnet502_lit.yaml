@@ -1,0 +1,6 @@
+defaults:
+- nn@model: wideresnet502
+- scheduler: cosine
+- optimizer: sgd
+
+_target_: src.models.lit_module.CrossEntropyLitModule

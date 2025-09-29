@@ -1,0 +1,8 @@
+defaults:
+- resnet_lit
+
+model:
+  layers: 50
+  small_inputs: false
+  num_classes: 1000
+  num_channels: 3
